@@ -16,6 +16,8 @@
        controller.vm.hostname = 'controller'
        
        controller.vm.network :private_network, ip: "192.168.56.11"
+
+       controller.vm.provision "shell", path: "provision.sh", privileged: false
        
        # config.hostsupdater.aliases = ["development.controller"] 
        

@@ -21,9 +21,9 @@ Orchestration is the automated configuration, management, and coordination of co
 
 Ansible is an open sourceIT automation tool that automates provisioning, configuration management, application deployment, orchestration, and many other manual IT processes.
 
-### Requirements
+### How to set up Controller connection between web and db nodes
 
-in controller 
+in controller vm
 
 `sudo apt-get install software-properties-common`
 
@@ -35,7 +35,7 @@ then `sudo apt-get install ansible -y`
 
 then `sudo apt-get install tree -y`
 
-then `cd etc/`
+then `cd /etc`
 
 then `cd ansible/`
 
@@ -49,8 +49,18 @@ in `vagrant@controller:/etc/ansible$`
 1. run `sudo nano hosts`
 2. add ip of web under `[web]` after ip add `ansible_connection=ssh ansible_ssh_user=vagrant ansible_ssh_pass=vagrant`
 3. e.g `[web]`
-192.168.56.12 ansible_connection=ssh ansible_ssh_user=vagrant ansible_ssh_pass=$`
+`192.168.56.12 ansible_connection=ssh ansible_ssh_user=vagrant ansible_ssh_pass=vagrant`
 4. run `sudo ansible -m ping web`
+
+adhoc commands 
+- `sudo ansible web -a "date"` - get the date of your `web` machine
+- `sudo ansible all -m ping` - see which vms are connected
+- `sudo ansible all -a "sudo apt update"` - update all vms
+- `sudo ansible all -a "free"` - see the space on the vms connected
+
+to copy file from controller to agent node run `sudo ansible web -m copy -a "src=hosts dest=/home/vagrant"`
+
+to create a script i made a `provision.sh` file and saved in th esame location as the `Vagrantfile` and then i added this line `controller.vm.provision "shell", path: "provision.sh", privileged: false` to the Vagrant file. I then done `vagrant destroy` and then `vagrant up`
 
 
 
@@ -68,6 +78,16 @@ the old version is called the blue environment and the new one is called the gre
 - More Stability
 - Zero Downtime
 - Save money on cloud
+
+### What is Inventory?
+
+The Ansible inventory file defines the hosts and groups of hosts upon which commands, modules, and tasks in a playbook operate. The file can be in one of many formats depending on your Ansible environment and plugins. Common formats include INI and YAML.
+
+### What is Ansible Roles?
+
+Ansible roles allow you to develop reusable automation components by grouping and encapsulating related automation artifacts, like configuration files, templates, tasks, and handlers. Because roles isolate these components, it's easier to reuse them and share them with other people.
+
+
 
 
 
