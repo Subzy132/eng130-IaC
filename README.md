@@ -21,9 +21,22 @@ Orchestration is the automated configuration, management, and coordination of co
 
 Ansible is an open sourceIT automation tool that automates provisioning, configuration management, application deployment, orchestration, and many other manual IT processes.
 
+### Benefits
+
+- Agentless
+
+
+### IP'S
+
+- 192.168.56.11 - CONTROLLER
+- 192.168.56.12 - WEB
+- 192.168.56.13 - DB
+
 ### How to set up Controller connection between web and db nodes
 
 in controller vm
+
+**remember to ssh into the other vms before trying to run commands**
 
 `sudo apt-get install software-properties-common`
 
@@ -62,8 +75,74 @@ to copy file from controller to agent node run `sudo ansible web -m copy -a "src
 
 to create a script i made a `provision.sh` file and saved in th esame location as the `Vagrantfile` and then i added this line `controller.vm.provision "shell", path: "provision.sh", privileged: false` to the Vagrant file. I then done `vagrant destroy` and then `vagrant up`
 
+`-m` means module
+`-a` means argument
 
+### Yaml introduction 
 
+in `vagrant@controller:/etc/ansible$`
+  1. `sudo nano configure_nginx.yml`
+  2. `---` shows that it is a yaml file
+  3. `hosts` states the name of the server
+  4. `gather_facts` states if you want to gather data
+  5. `become` states whether you want admin sudo access
+  6. `tasks` states the tasks you want to run
+  7. to run the script run  `sudo ansible-playbook [name of playbook]`
+  8. run `sudo ansible-playbook configure_nginx.yml -vvv` to see all detailed information
+
+**configure_nginx.yml**
+```yaml
+
+# yaml file start
+---
+# create a script to configure nginx in our web server
+
+# Who is the host - means name of the server
+- hosts: web
+
+# gather data
+  gather_facts: yes
+
+# we need admin access
+  become: true
+
+# add the actual instruction
+  tasks:
+  - name: install/configure Nginx web server in web-VM
+    apt: pkg=nginx state=present
+# we need to ensure at the end of this script the status of nginx is running
+
+```
+
+**node.yml**
+
+```yaml
+
+- hosts: web
+  gather_facts: true
+  become: true
+
+  tasks:
+  - name: "Add nodejs apt key"
+    apt_key:
+      url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+      state: present
+  - name: "Add nodejs 12.x ppa for apt repo"
+    apt_repository:
+      repo: deb https://deb.nodesource.com/node_12.x bionic main
+      update_cache: yes
+  - name: Install/configure nodejs
+    apt: pkg=nodejs state=present
+  - name: Install npm
+    apt: pkg=npm state=present
+
+```
+
+to sync app to vm run this in the local host
+
+`scp -r /Users/subhaanadmin/eng130-IaCnew/app vagrant@192.168.56.11:/home/vagrant`
+
+`scp -r /Users/subhaanadmin/eng130-IaCnew/environment vagrant@192.168.56.11:/home/vagrant`
 ### What is Blue Green Deployment?
 
 ![Alt text](/images/bluegreen.png.jpeg)
