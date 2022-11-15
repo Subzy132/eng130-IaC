@@ -44,14 +44,18 @@
       src: /home/vagrant/environment
       dest: /home/vagrant
 
-  - name: add env variable
-    shell: |
-     export DB_HOST=mongodb://192.168.56.13:27017/posts
+#  - name: add env variable
+#    shell: |
+#     export DB_HOST=mongodb://192.168.56.13:27017/posts
 
-  - name: Run npm
+  - name: Run nom
     shell: |
       cd app
       npm install
       node seeds/seed.js
       pm2 kill
       pm2 start app.js
+    environment:
+# This is where you enter the environment variable to tell the app where to look for the db
+      DB_HOST: mongodb://192.168.56.13:27017/posts?authSource=admin
+    become_user: root
