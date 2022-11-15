@@ -3,23 +3,31 @@
 
 - hosts: db
 
+# Gather all the data
   gather_facts: yes
 
+# allow admin access
   become: true
 
+# Carry out the tasks
   tasks:
   - name: install mongodb
     apt: pkg=mongodb state=present
+  
+
   - name: Remove mongodb file (delete file)
     file:
       path: /etc/mongodb.conf
       state: absent
-  - name: Touch a file, using symbolic modes to set the permissions (equivalent to 0644)
+
+    
+  - name: Touch mongodb.conf file
     file:
       path: /etc/mongodb.conf
       state: touch
       mode: u=rw,g=r,o=r
-  - name: Insert multiple lines and Backup
+      
+  - name: Populate Conf file
     blockinfile:
       path: /etc/mongodb.conf
       block: |
@@ -34,6 +42,7 @@
         net:
           port: 27017
           bindIp: 0.0.0.0
+          
   - name: Restart mongodb
     become: true
     shell: systemctl restart mongodb
