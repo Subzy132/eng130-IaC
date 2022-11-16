@@ -114,29 +114,13 @@ in `vagrant@controller:/etc/ansible$`
 
 ```
 
-**node.yml**
+- Here is the mongodb playbook [mongo]([link](https://github.com/Subzy132/eng130-IaC/blob/main/mongo.yml))
+- Here is the Node playbook [mongo]([link](https://github.com/Subzy132/eng130-IaC/blob/main/node.yml))
 
-```yaml
+### Notes
 
-- hosts: web
-  gather_facts: true
-  become: true
-
-  tasks:
-  - name: "Add nodejs apt key"
-    apt_key:
-      url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-      state: present
-  - name: "Add nodejs 12.x ppa for apt repo"
-    apt_repository:
-      repo: deb https://deb.nodesource.com/node_12.x bionic main
-      update_cache: yes
-  - name: Install/configure nodejs
-    apt: pkg=nodejs state=present
-  - name: Install npm
-    apt: pkg=npm state=present
-
-```
+- If you run into an error when downloading dependencies using the playbook you can use `sudo apt-get purge [name]` to delete a dependancy
+- 
 
 to sync app to vm run this in the local host
 
