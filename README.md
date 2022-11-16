@@ -114,13 +114,40 @@ in `vagrant@controller:/etc/ansible$`
 
 ```
 
-- Here is the mongodb playbook [mongo]([(https://github.com/Subzy132/eng130-IaC/blob/main/mongo.yml)])
+- Here is the mongodb playbook [mongo]((https://github.com/Subzy132/eng130-IaC/blob/main/mongo.yml))
 - Here is the Node playbook [node]([l(https://github.com/Subzy132/eng130-IaC/blob/main/node.yml)])
+
+### Moving to Hybrid 
+
+prerequisites
+
+- sudo apt install python3
+- sudo apt install python3-pip
+- pip3 install awscli
+- pip3 install boto boto3
+- python --version
+- alias python=python3
+- sudo mkdir group_vars
+- cd group_vars/
+- sudo mkdir all
+- cd all/
+- 
+
+
+vi commands
+
+- run `sudo vi test`
+- :wq!
+- sudo chmod 666 pass.yml
+- create ssh key in controller
+- sudo ansible-playbook ec2.yml -ask-vault-pass --tags create-ec2
+- ec2-instance ansible_host=ec2-ip ansible_user=ubuntu ansible_ssh_private_key_file~/.ssh/eng130.pem in hosts
+- 
 
 ### Notes
 
 - If you run into an error when downloading dependencies using the playbook you can use `sudo apt-get purge [name]` to delete a dependancy
-- 
+  
 
 to sync app to vm run this in the local host
 

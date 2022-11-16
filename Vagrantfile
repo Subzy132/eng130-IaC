@@ -11,35 +11,37 @@
     # creating are Ansible controller
       config.vm.define "controller" do |controller|
         
-       controller.vm.box = "bento/ubuntu-18.04"
-       
-       controller.vm.hostname = 'controller'
-       
-       controller.vm.network :private_network, ip: "192.168.56.11"
+        controller.vm.box = "bento/ubuntu-18.04"
 
-       controller.vm.provision "shell", path: "provision.sh", privileged: false
+        controller.vm.hostname = 'controller'
 
-       controller.vm.synced_folder "./app", "/home/vagrant/"
-       
-       # config.hostsupdater.aliases = ["development.controller"] 
-       
-      end 
+        controller.vm.network :private_network, ip: "192.168.56.11"
+        # sync a file
+        # controller.vm.synced_folder "./playb", "/etc/ansible/"
+
+        # config.hostsupdater.aliases = ["development.controller"] 
+        controller.vm.provision "shell", path: "provision.sh"
+
+        end 
     # creating first VM called web  
       config.vm.define "web" do |web|
         
         web.vm.box = "bento/ubuntu-18.04"
-       # downloading ubuntu 18.04 image
-    
+        # downloading ubuntu 18.04 image
+
         web.vm.hostname = 'web'
         # assigning host name to the VM
         
         web.vm.network :private_network, ip: "192.168.56.12"
         #   assigning private IP
+        # sync a file
+        # web.vm.synced_folder "./folderweb", "/home/vagrant/local/"
         
         #config.hostsupdater.aliases = ["development.web"]
         # creating a link called development.web so we can access web page with this link instread of an IP   
-            
-      end
+        web.vm.provision "shell", path: "web.sh"
+        
+        end
       
     # creating second VM called db
       config.vm.define "db" do |db|
@@ -49,10 +51,12 @@
         db.vm.hostname = 'db'
         
         db.vm.network :private_network, ip: "192.168.56.13"
+        # sync a file
+        #db.vm.synced_folder "./folderdb", "/home/vagrant/"
+        #config.hostsupdater.aliases = ["development.db"]
+        db.vm.provision "shell", path: "db.sh"
         
-        #config.hostsupdater.aliases = ["development.db"]     
-      end
+        end
     
     
     end
-   
