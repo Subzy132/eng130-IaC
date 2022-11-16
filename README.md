@@ -78,7 +78,7 @@ to create a script i made a `provision.sh` file and saved in th esame location a
 `-m` means module
 `-a` means argument
 
-### Yaml introduction 
+### Yaml introduction 
 
 in `vagrant@controller:/etc/ansible$`
   1. `sudo nano configure_nginx.yml`
