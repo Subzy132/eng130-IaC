@@ -114,8 +114,8 @@ in `vagrant@controller:/etc/ansible$`
 
 ```
 
-- Here is the mongodb playbook [mongo]([link](https://github.com/Subzy132/eng130-IaC/blob/main/mongo.yml))
-- Here is the Node playbook [mongo]([link](https://github.com/Subzy132/eng130-IaC/blob/main/node.yml))
+- Here is the mongodb playbook [mongo]([(https://github.com/Subzy132/eng130-IaC/blob/main/mongo.yml)])
+- Here is the Node playbook [node]([l(https://github.com/Subzy132/eng130-IaC/blob/main/node.yml)])
 
 ### Notes
 
