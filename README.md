@@ -131,6 +131,9 @@ prerequisites
 - cd group_vars/
 - sudo mkdir all
 - cd all/
+- sudo ansible-vault create pass.yml
+- add aws_access_key:
+- add aws_secret_key:
 - 
 
 
@@ -140,8 +143,9 @@ vi commands
 - :wq!
 - sudo chmod 666 pass.yml
 - create ssh key in controller
-- sudo ansible-playbook ec2.yml -ask-vault-pass --tags create-ec2
+- sudo ansible-playbook ec2.yml --ask-vault-pass --tags create_ec2
 - ec2-instance ansible_host=ec2-ip ansible_user=ubuntu ansible_ssh_private_key_file~/.ssh/eng130.pem in hosts
+- 
 - 
 
 ### Notes
@@ -177,8 +181,46 @@ The Ansible inventory file defines the hosts and groups of hosts upon which comm
 
 Ansible roles allow you to develop reusable automation components by grouping and encapsulating related automation artifacts, like configuration files, templates, tasks, and handlers. Because roles isolate these components, it's easier to reuse them and share them with other people.
 
+### Infrastructure as Code - Orchestration with Terraform
 
+### What is Terraform
 
+It is an Open source IaC tool, used by devops teams to automate infrastructure tasks. 
+
+### Benefits 
+
+Flexibility - Terraform can store local variables, including passwords and cloud tokens on Terraform registry in encrypted form
+
+Portability - Terraform liberates you from the stress of switching providers regularly. Now you can use one language and one tool to define the infrastructure for AWS, Google Cloud, OpenStack, etc.
+
+Not agent-based - Another appealing feature of Terraform is that it does not need to install any software on the managed infrastructure. Moreover, most of the automation and IaC tools are agent-based, but Terraform liberates its users from this hassle. 
+
+Collaboration - Terraform’s central registry allows users to collaborate with other teams and individuals on infrastructure. 
+
+### use cases
+
+- Provisioning cloud resources
+- Facilitate multi-cloud deployments
+- deploying, managing, and orchestrating resources with custom cloud providers
+### who is using it 
+
+Uber.
+Udemy.
+Robinhood.
+Slack.
+Twitch.
+
+### who owns it
+
+Hashicorp -  software company that provides modular DevOps infrastructure provisioning and management products
+
+### Installation guide for terraform
+
+1. went to https://developer.hashicorp.com/terraform/downloads and downloaded the correct version
+2. Found `/usr/local/bin` file and then dragged the downloaded binary file into there
+3. Run terraform --version
+4. restart terminal
+5. create ENV VAR using `export AWS_ACCESS_KEY_ID=` and `export AWS_SECRET_KEY_ID=` 
 
 
 
