@@ -220,7 +220,47 @@ Hashicorp -  software company that provides modular DevOps infrastructure provis
 2. Found `/usr/local/bin` file and then dragged the downloaded binary file into there
 3. Run terraform --version
 4. restart terminal
-5. create ENV VAR using `export AWS_ACCESS_KEY_ID=` and `export AWS_SECRET_KEY_ID=` 
+5. create ENV VAR using `nano ~/.bashrc` and put `export AWS_ACCESS_KEY_ID=` and `export AWS_SECRET_KEY_ID=` 
+6. run `source .bashrc`
+7. run `nano main.tf`
+```terraform
+# Write a script to launch resources on the cloud
+
+# create ec2 instance on AWS
+
+# syntax {
+#         ami = sdjagogi }
+# download dependencies from AWS
+
+provider "aws" { 
 
 
+# which part of AWS we would like to launch resources in
+  region = "eu-west-1"
+}
 
+resource "aws_instance" "app_instance" {
+  ami = "ami-0b47105e3d7fc023e"
+  instance_type = "t2.micro"
+  associate_public_ip_address = true
+  tags = {
+      Name = "eng130-subhaan-terraform-app"
+ }
+}
+# what type of server with what sort of functionality 
+
+# add resource
+
+# ami
+
+# instance type
+
+# do we need public ip or not
+
+# name the server 
+``` 
+8. run `terraform init`
+9. run `terraform plan`
+10. run `terraform apply`
+
+![Alt text](/images/terraformdiagram.png)
