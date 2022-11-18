@@ -17,7 +17,6 @@ resource "aws_subnet" "eng130_subhaan_public_subnet" {
   cidr_block = "10.0.12.0/24"
   map_public_ip_on_launch = true
   availability_zone = "eu-west-1a"
-
   tags = {
     Name = "eng130_subhaan_public_subnet"
   }
@@ -111,6 +110,7 @@ resource "aws_route_table_association" "eng130_subhaan_rt_association"{
 
 }
 
+
 resource "aws_instance" "app_instance" {
   ami = var.webapp_ami_id 
   instance_type = var.instance_type
@@ -122,4 +122,3 @@ resource "aws_instance" "app_instance" {
       Name = var.instance_name
  }
 }
-#hello
