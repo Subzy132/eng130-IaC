@@ -110,6 +110,20 @@ resource "aws_route_table_association" "eng130_subhaan_rt_association"{
 
 }
 
+resource "aws_lb" "eng130_subhaan_alb" {
+  name               = "eng-subhaan-alb"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.eng130_subhaan_sg.id]
+  subnets            = [aws_subnet.eng130_subhaan_public_subnet.id]
+
+  enable_deletion_protection = false
+
+  tags = {
+    Environment = "production"
+    Name = "eng130_subhaan_alb"
+  }
+}
 
 resource "aws_instance" "app_instance" {
   ami = var.webapp_ami_id 
