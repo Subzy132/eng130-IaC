@@ -117,6 +117,7 @@ resource "aws_instance" "app_instance" {
   associate_public_ip_address = true
   subnet_id = aws_subnet.eng130_subhaan_public_subnet.id
   vpc_security_group_ids = [aws_security_group.eng130_subhaan_sg.id]
+  key_name = var.aws_key_name
   tags = {
       Name = var.instance_name
  }

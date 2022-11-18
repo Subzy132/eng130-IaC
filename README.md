@@ -262,5 +262,11 @@ resource "aws_instance" "app_instance" {
 8. run `terraform init`
 9. run `terraform plan`
 10. run `terraform apply`
+11. `Terraform validate` to check through the file on local
 
 ![Alt text](/images/terraformdiagram.png)
+
+--- 
+
+
+![Alt text](/images/IaCdiagram.png)
